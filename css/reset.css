@@ -5,3 +5,13 @@
 body {
   margin: 0;
 }
+
+input {
+  width: 100%;
+  padding: 12px 0.75rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0 0.75rem;
+}

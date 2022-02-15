@@ -4,6 +4,7 @@
 var $photoUrl = document.querySelector('img');
 var $imageURL = document.querySelector('#url-entry');
 var $submitForm = document.querySelector('#entry-form');
+var $ulEntries = document.querySelectorAll('ul');
 
 /* Image URL Event Listener */
 function handleURLInput(event) {
@@ -19,7 +20,7 @@ function handleSubmit(event) {
   var notesValue = $submitForm.elements.notes.value;
   var entryValues = {
     title: titleValue,
-    photoURL: urlValue,
+    photoUrl: urlValue,
     notes: notesValue,
     entryId: data.nextEntryId
   };
@@ -29,3 +30,52 @@ function handleSubmit(event) {
   $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 $submitForm.addEventListener('submit', handleSubmit);
+
+/* Dom Tree Creation? */
+
+function domTreeCreation(entries) {
+  /* Format for HTML
+          <li class="row" entry-id="" >
+            <div class="column-half">
+              <img src="photoUrl" alt="">
+            </div>
+            <div class="column-half">
+              <h1>TitleValue</h1>
+              <p>Notes Value</p>
+            </div>
+          </li > */
+  var $li = document.createElement('li');
+  var $divImg = document.createElement('div');
+  var $img = document.createElement('img');
+  var $divValues = document.createElement('div');
+  var $h1 = document.createElement('h1');
+  var $p = document.createElement('p');
+  var $title = document.createTextNode(entries.title);
+  var $notes = document.createTextNode(entries.notes);
+
+  $li.setAttribute('class', 'row');
+  $li.setAttribute('entryId', entries.entryId);
+  $img.setAttribute('src', entries.photoUrl);
+  $divImg.setAttribute('class', 'column-half');
+  $divValues.setAttribute('class', 'column-half');
+
+  $li.appendChild($divImg);
+  $li.appendChild($divValues);
+  $divImg.appendChild($img);
+  $h1.appendChild($title);
+  $p.appendChild($notes);
+  $divValues.appendChild($h1);
+  $divValues.appendChild($p);
+
+  return $li;
+}
+
+function domContentLoadedHandle(event) {
+  for (var index = 0; index < data.entries.length; index++) {
+    var $entries = domTreeCreation(data.entries[index]);
+
+    $ulEntries.appendChild($entries);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', domContentLoadedHandle);

@@ -15,9 +15,39 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
+  <header class="container bgc-purple">
+    <div class="row">
+      <p class="column-full font-size-up white-txt">Code Journal</p>
+    </div>
   </header>
-  <main>
+  <main class="container">
+    <div data-view="entry-form">
+      <form id="entry-form">
+        <h1 class="column-full">New Entry</h1>
+        <div class="row">
+          <div class="column-half">
+            <img src="images/placeholder-image-square.jpg">
+          </div>
+          <div class="column-half">
+            <div class="row font-big-bold margin-top">
+              <label class="margin-bottom" for="title-entry">Title</label>
+              <input class="title-entry" required name="title" type="text" id="title-entry">
+            </div>
+            <div class="row font-big-bold margin-top">
+              <label class="margin-bottom" for="url-entry">Photo URL</label>
+              <input class="url-entry" required name="url" type="url" id="url-entry">
+            </div>
+          </div>
+        </div>
+        <div class="margin-top text-area font-big-bold row">
+          <label class="margin-bottom" for="notes-entry">Notes</label>
+          <textarea class="" required rows="8" name="notes" id="notes-entry"></textarea>
+        </div>
+        <div class="row text-area margin-top justify-right">
+          <button class="save-button bgc-purple " type="submit">SAVE</button>
+        </div>
+      </form>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

@@ -1,0 +1,41 @@
+.bgc-purple {
+  background-color: rgb(85, 42, 128);
+}
+
+img {
+  width: 100%;
+}
+
+.justify-right {
+  justify-content: right;
+}
+
+.font-size-up {
+  font-size: 20px;
+}
+
+.font-big-bold {
+  font-size: large;
+  font-weight: bold;
+}
+
+.margin-bottom {
+  margin-bottom: 12px;
+}
+
+.margin-top {
+  margin-top: 24px;
+}
+
+.white-txt {
+  color: white;
+}
+
+.save-button {
+  color: white;
+  font-size: large;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}

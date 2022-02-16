@@ -16,8 +16,9 @@
 </head>
 <body>
   <header class="container bgc-purple">
-    <div class="row">
-      <p class="column-full font-size-up white-txt">Code Journal</p>
+    <div class="row no-wrap">
+      <p class=" font-size-up white-txt">Code Journal</p>
+      <a class=" white-txt entries-anchor" href="">Entries</a>
     </div>
   </header>
   <main class="container">
@@ -49,10 +50,13 @@
       </form>
     </div>
     <div data-view="entries">
-      <div class="row">
-        <h1 class="column-half entries-header">Entries</h1>
+      <div class="row ">
+        <h1 class="column-half no-padding entries-header">Entries</h1>
         <div class="column-half new-button  align-self-center entries-header right-align">
           <button class="new-button bgc-purple">NEW</button>
+        </div>
+        <div class="center-txt hidden column-full">
+          <p>No Entries have been Recorded</p>
         </div>
         <ul></ul>
       </div>

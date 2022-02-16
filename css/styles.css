@@ -35,6 +35,10 @@ img {
   color: white;
 }
 
+.center-txt {
+  text-align: center;
+}
+
 .save-button {
   color: white;
   font-size: large;
@@ -50,4 +54,9 @@ img {
   padding: 6px 13px;
   border: none;
   border-radius: 3px;
+}
+
+.entries-anchor {
+  align-self: center;
+  margin-left: 16px;
 }

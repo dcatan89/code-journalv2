@@ -13,6 +13,10 @@
   flex-wrap: wrap;
 }
 
+.no-wrap {
+  flex-wrap: nowrap;
+}
+
 .column-full,
 .column-half {
   width: 100%;
@@ -42,5 +46,9 @@
 
   .text-area {
     padding: 0 0.75rem;
+  }
+
+  .no-padding {
+    padding: 0;
   }
 }

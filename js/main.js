@@ -4,7 +4,7 @@
 var $photoUrl = document.querySelector('img');
 var $imageURL = document.querySelector('#url-entry');
 var $submitForm = document.querySelector('#entry-form');
-var $ulEntries = document.querySelectorAll('ul');
+var $ulEntries = document.querySelector('#ul-entries');
 
 /* Image URL Event Listener */
 function handleURLInput(event) {
@@ -73,9 +73,28 @@ function domTreeCreation(entries) {
 function domContentLoadedHandle(event) {
   for (var index = 0; index < data.entries.length; index++) {
     var $entries = domTreeCreation(data.entries[index]);
-
     $ulEntries.appendChild($entries);
   }
+  dataView(data.view);
 }
 
 window.addEventListener('DOMContentLoaded', domContentLoadedHandle);
+
+/* Data View Swap */
+var $view = document.querySelectorAll('.view');
+var $noEntries = document.querySelector('.no-entry');
+
+function dataView(string) {
+  data.view = string;
+
+  if (data.entries.length !== 0) {
+    $noEntries.classList.add('hidden');
+  }
+  for (var i = 0; i < $view.length; i++) {
+    if ($view[i].getAttribute('data-view') === string) {
+      $view[i].classList.remove('hidden');
+    } else {
+      $view[i].classList.add('hidden');
+    }
+  }
+}

@@ -22,7 +22,7 @@
     </div>
   </header>
   <main class="container">
-    <div class="hidden" data-view="entry-form">
+    <div class=" view" data-view="entry-form">
       <form id="entry-form">
         <h1 class="column-full">New Entry</h1>
         <div class="row">
@@ -49,16 +49,16 @@
         </div>
       </form>
     </div>
-    <div data-view="entries">
+    <div class="hidden view" data-view="entries">
       <div class="row ">
         <h1 class="column-half no-padding entries-header">Entries</h1>
         <div class="column-half new-button  align-self-center entries-header right-align">
           <button class="new-button bgc-purple">NEW</button>
         </div>
-        <div class="center-txt hidden column-full">
+        <div class="center-txt column-full no-entry">
           <p>No Entries have been Recorded</p>
         </div>
-        <ul></ul>
+        <ul id="ul-entries"></ul>
       </div>
     </div>
   </main>

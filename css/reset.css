@@ -22,9 +22,14 @@ ul {
 }
 
 li {
+  margin: auto;
   margin-top: 16px;
 }
 
 a {
   text-decoration: none;
+}
+
+button:hover {
+  cursor: pointer;
 }

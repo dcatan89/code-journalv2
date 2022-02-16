@@ -28,6 +28,8 @@ function handleSubmit(event) {
   data.nextEntryId++;
   $submitForm.reset();
   $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $ulEntries.prepend(domTreeCreation(entryValues));
+  dataView('entries');
 }
 $submitForm.addEventListener('submit', handleSubmit);
 
@@ -53,10 +55,10 @@ function domTreeCreation(entries) {
   var $title = document.createTextNode(entries.title);
   var $notes = document.createTextNode(entries.notes);
 
-  $li.setAttribute('class', 'row');
+  $li.className = 'row';
   $li.setAttribute('entryId', entries.entryId);
   $img.setAttribute('src', entries.photoUrl);
-  $divImg.setAttribute('class', 'column-half');
+  $divImg.className = 'column-half no-padding';
   $divValues.setAttribute('class', 'column-half');
 
   $li.appendChild($divImg);
@@ -83,6 +85,8 @@ window.addEventListener('DOMContentLoaded', domContentLoadedHandle);
 /* Data View Swap */
 var $view = document.querySelectorAll('.view');
 var $noEntries = document.querySelector('.no-entry');
+var $anchorEntries = document.querySelector('.entries-anchor');
+var $newButton = document.querySelector('.new-button');
 
 function dataView(string) {
   data.view = string;
@@ -98,3 +102,16 @@ function dataView(string) {
     }
   }
 }
+
+function handleViewSwap(event) {
+  var viewName = event.target.getAttribute('data-view');
+  dataView(viewName);
+}
+function viewSwapNoReload(event) {
+  var viewName = event.target.getAttribute('data-view');
+  dataView(viewName);
+  event.preventDefault();
+}
+
+$anchorEntries.addEventListener('click', viewSwapNoReload);
+$newButton.addEventListener('click', handleViewSwap);

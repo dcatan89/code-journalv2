@@ -6,6 +6,10 @@ img {
   width: 100%;
 }
 
+.right-align {
+  text-align: right;
+}
+
 .justify-right {
   justify-content: right;
 }
@@ -31,6 +35,10 @@ img {
   color: white;
 }
 
+.center-txt {
+  text-align: center;
+}
+
 .save-button {
   color: white;
   font-size: large;
@@ -38,4 +46,17 @@ img {
   border: none;
   border-radius: 3px;
   margin-bottom: 1rem;
+}
+
+.new-button {
+  color: white;
+  font-size: large;
+  padding: 6px 13px;
+  border: none;
+  border-radius: 3px;
+}
+
+.entries-anchor {
+  align-self: center;
+  margin-left: 16px;
 }

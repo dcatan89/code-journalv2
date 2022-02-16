@@ -4,6 +4,7 @@
 var $photoUrl = document.querySelector('img');
 var $imageURL = document.querySelector('#url-entry');
 var $submitForm = document.querySelector('#entry-form');
+var $ulEntries = document.querySelector('#ul-entries');
 
 /* Image URL Event Listener */
 function handleURLInput(event) {
@@ -19,7 +20,7 @@ function handleSubmit(event) {
   var notesValue = $submitForm.elements.notes.value;
   var entryValues = {
     title: titleValue,
-    photoURL: urlValue,
+    photoUrl: urlValue,
     notes: notesValue,
     entryId: data.nextEntryId
   };
@@ -27,5 +28,90 @@ function handleSubmit(event) {
   data.nextEntryId++;
   $submitForm.reset();
   $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $ulEntries.prepend(domTreeCreation(entryValues));
+  dataView('entries');
 }
 $submitForm.addEventListener('submit', handleSubmit);
+
+/* Dom Tree Creation? */
+
+function domTreeCreation(entries) {
+  /* Format for HTML
+          <li class="row" entry-id="" >
+            <div class="column-half">
+              <img src="photoUrl" alt="">
+            </div>
+            <div class="column-half">
+              <h1>TitleValue</h1>
+              <p>Notes Value</p>
+            </div>
+          </li > */
+  var $li = document.createElement('li');
+  var $divImg = document.createElement('div');
+  var $img = document.createElement('img');
+  var $divValues = document.createElement('div');
+  var $h1 = document.createElement('h1');
+  var $p = document.createElement('p');
+  var $title = document.createTextNode(entries.title);
+  var $notes = document.createTextNode(entries.notes);
+
+  $li.className = 'row';
+  $li.setAttribute('entryId', entries.entryId);
+  $img.setAttribute('src', entries.photoUrl);
+  $divImg.className = 'column-half no-padding';
+  $divValues.setAttribute('class', 'column-half');
+
+  $li.appendChild($divImg);
+  $li.appendChild($divValues);
+  $divImg.appendChild($img);
+  $h1.appendChild($title);
+  $p.appendChild($notes);
+  $divValues.appendChild($h1);
+  $divValues.appendChild($p);
+
+  return $li;
+}
+
+function domContentLoadedHandle(event) {
+  for (var index = 0; index < data.entries.length; index++) {
+    var $entries = domTreeCreation(data.entries[index]);
+    $ulEntries.appendChild($entries);
+  }
+  dataView(data.view);
+}
+
+window.addEventListener('DOMContentLoaded', domContentLoadedHandle);
+
+/* Data View Swap */
+var $view = document.querySelectorAll('.view');
+var $noEntries = document.querySelector('.no-entry');
+var $anchorEntries = document.querySelector('.entries-anchor');
+var $newButton = document.querySelector('.new-button');
+
+function dataView(string) {
+  data.view = string;
+
+  if (data.entries.length !== 0) {
+    $noEntries.classList.add('hidden');
+  }
+  for (var i = 0; i < $view.length; i++) {
+    if ($view[i].getAttribute('data-view') === string) {
+      $view[i].classList.remove('hidden');
+    } else {
+      $view[i].classList.add('hidden');
+    }
+  }
+}
+
+function handleViewSwap(event) {
+  var viewName = event.target.getAttribute('data-view');
+  dataView(viewName);
+}
+function viewSwapNoReload(event) {
+  var viewName = event.target.getAttribute('data-view');
+  dataView(viewName);
+  event.preventDefault();
+}
+
+$anchorEntries.addEventListener('click', viewSwapNoReload);
+$newButton.addEventListener('click', handleViewSwap);

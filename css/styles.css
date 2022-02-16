@@ -6,6 +6,10 @@ img {
   width: 100%;
 }
 
+.right-align {
+  text-align: right;
+}
+
 .justify-right {
   justify-content: right;
 }
@@ -38,4 +42,12 @@ img {
   border: none;
   border-radius: 3px;
   margin-bottom: 1rem;
+}
+
+.new-button {
+  color: white;
+  font-size: large;
+  padding: 6px 13px;
+  border: none;
+  border-radius: 3px;
 }

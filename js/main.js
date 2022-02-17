@@ -58,14 +58,18 @@ function domTreeCreation(entries) {
   var $title = document.createTextNode(entries.title);
   var $notes = document.createTextNode(entries.notes);
 
-  $pencil.className = 'pencil-img ';
+  $pencil.className = 'pencil-img edit-icon ';
+  $pencil.setAttribute('data-view', 'entry-form');
+  $pencilBox.setAttribute('data-view', 'entry-form');
   $pencil.setAttribute('src', 'images/pencil.png');
+  $pencil.setAttribute('entryId', entries.entryId);
+  $pencilBox.setAttribute('entryId', entries.entryId);
   $li.className = 'row';
   $li.setAttribute('entryId', entries.entryId);
   $img.setAttribute('src', entries.photoUrl);
   $divImg.className = 'column-half no-padding';
   $h1.className = 'h1-entries';
-  $pencilBox.className = 'pencil-box';
+  $pencilBox.className = 'pencil-box edit-icon';
   $h1PencilDiv.className = 'column-full no-padding row ';
   $divValues.setAttribute('class', 'column-half');
 
@@ -114,8 +118,12 @@ function dataView(string) {
   }
 }
 
+var editEntryH1 = document.querySelector('.new-entry-h1');
 function handleViewSwap(event) {
   var viewName = event.target.getAttribute('data-view');
+  if (viewName === 'entry-form') {
+    editEntryH1.textContent = 'New Entry';
+  }
   dataView(viewName);
 }
 function viewSwapNoReload(event) {
@@ -128,3 +136,22 @@ $anchorEntries.addEventListener('click', viewSwapNoReload);
 $newButton.addEventListener('click', handleViewSwap);
 
 /* Editing Function */
+function handleEditing(event) {
+  var viewName = event.target.getAttribute('data-view');
+  var editEntryH1 = document.querySelector('.new-entry-h1');
+  if (event.target.matches('.edit-icon')) {
+    dataView(viewName);
+    editEntryH1.textContent = 'Edit Entry';
+    data.editing = parseInt(event.target.getAttribute('entryId'));
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.editing === data.entries[i].entryId) {
+        $submitForm.elements.title.value = data.entries[i].title;
+        $submitForm.elements.url.value = data.entries[i].photoUrl;
+        $submitForm.elements.notes.value = data.entries[i].notes;
+        $photoUrl.setAttribute('src', data.entries[i].photoUrl);
+      }
+    }
+  }
+}
+
+$ulEntries.addEventListener('click', handleEditing);

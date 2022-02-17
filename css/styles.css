@@ -62,7 +62,6 @@ img {
 }
 
 .pencil-img {
-  color: rgb(85, 42, 128);
   width: 25%;
   height: 75%;
   align-self: center;
@@ -71,6 +70,10 @@ img {
 .pencil-box {
   text-align: right;
   width: 50%;
+}
+
+.pencil-box:hover {
+  cursor: pointer;
 }
 
 .h1-entries {

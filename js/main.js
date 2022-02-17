@@ -18,14 +18,35 @@ function handleSubmit(event) {
   var titleValue = $submitForm.elements.title.value;
   var urlValue = $submitForm.elements.url.value;
   var notesValue = $submitForm.elements.notes.value;
-  var entryValues = {
-    title: titleValue,
-    photoUrl: urlValue,
-    notes: notesValue,
-    entryId: data.nextEntryId
-  };
-  data.entries.unshift(entryValues);
-  data.nextEntryId++;
+
+  if (data.editing === null) {
+    var entryValues = {
+      title: titleValue,
+      photoUrl: urlValue,
+      notes: notesValue,
+      entryId: data.nextEntryId
+    };
+    data.entries.unshift(entryValues);
+    data.nextEntryId++;
+  }
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing) {
+      entryValues = {
+        titleValue,
+        urlValue,
+        notesValue,
+        entryId: data.entries[i].entryId
+      };
+
+      var $li = document.querySelectorAll('li');
+      var editValues = data.entries.splice(i, 1, entryValues);
+      var editEntry = domTreeCreation(editValues[i]);
+      $li[i].replaceWith(editEntry);
+      data.editing = null;
+    }
+  }
+
   $submitForm.reset();
   $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
   $ulEntries.prepend(domTreeCreation(entryValues));

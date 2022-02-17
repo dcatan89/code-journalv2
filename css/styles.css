@@ -60,3 +60,19 @@ img {
   align-self: center;
   margin-left: 16px;
 }
+
+.pencil-img {
+  color: rgb(85, 42, 128);
+  width: 25%;
+  height: 75%;
+  align-self: center;
+}
+
+.pencil-box {
+  text-align: right;
+  width: 50%;
+}
+
+.h1-entries {
+  width: 50%;
+}

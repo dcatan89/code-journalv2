@@ -33,7 +33,7 @@ function handleSubmit(event) {
 }
 $submitForm.addEventListener('submit', handleSubmit);
 
-/* Dom Tree Creation? */
+/* Dom Tree Creation */
 
 function domTreeCreation(entries) {
   /* Format for HTML
@@ -52,13 +52,21 @@ function domTreeCreation(entries) {
   var $divValues = document.createElement('div');
   var $h1 = document.createElement('h1');
   var $p = document.createElement('p');
+  var $h1PencilDiv = document.createElement('div');
+  var $pencilBox = document.createElement('div');
+  var $pencil = document.createElement('img');
   var $title = document.createTextNode(entries.title);
   var $notes = document.createTextNode(entries.notes);
 
+  $pencil.className = 'pencil-img ';
+  $pencil.setAttribute('src', 'images/pencil.png');
   $li.className = 'row';
   $li.setAttribute('entryId', entries.entryId);
   $img.setAttribute('src', entries.photoUrl);
   $divImg.className = 'column-half no-padding';
+  $h1.className = 'h1-entries';
+  $pencilBox.className = 'pencil-box';
+  $h1PencilDiv.className = 'column-full no-padding row ';
   $divValues.setAttribute('class', 'column-half');
 
   $li.appendChild($divImg);
@@ -66,7 +74,10 @@ function domTreeCreation(entries) {
   $divImg.appendChild($img);
   $h1.appendChild($title);
   $p.appendChild($notes);
-  $divValues.appendChild($h1);
+  $h1PencilDiv.appendChild($h1);
+  $h1PencilDiv.appendChild($pencilBox);
+  $pencilBox.appendChild($pencil);
+  $divValues.appendChild($h1PencilDiv);
   $divValues.appendChild($p);
 
   return $li;
@@ -115,3 +126,5 @@ function viewSwapNoReload(event) {
 
 $anchorEntries.addEventListener('click', viewSwapNoReload);
 $newButton.addEventListener('click', handleViewSwap);
+
+/* Editing Function */

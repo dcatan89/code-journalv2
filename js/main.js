@@ -18,22 +18,43 @@ function handleSubmit(event) {
   var titleValue = $submitForm.elements.title.value;
   var urlValue = $submitForm.elements.url.value;
   var notesValue = $submitForm.elements.notes.value;
-  var entryValues = {
-    title: titleValue,
-    photoUrl: urlValue,
-    notes: notesValue,
-    entryId: data.nextEntryId
-  };
-  data.entries.unshift(entryValues);
-  data.nextEntryId++;
+  var $li = document.querySelectorAll('li');
+
+  if (data.editing === null) {
+    var entryValues = {
+      title: titleValue,
+      photoUrl: urlValue,
+      notes: notesValue,
+      entryId: data.nextEntryId
+    };
+    data.entries.unshift(entryValues);
+    data.nextEntryId++;
+    $ulEntries.prepend(domTreeCreation(entryValues));
+    $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
+  }
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing) {
+      entryValues = {
+        title: titleValue,
+        photoUrl: urlValue,
+        notes: notesValue,
+        entryId: data.entries[i].entryId
+      };
+
+      data.entries.splice(i, 1, entryValues);
+      var editEntry = domTreeCreation(entryValues);
+      $li[i].replaceWith(editEntry);
+      data.editing = null;
+    }
+  }
+
   $submitForm.reset();
-  $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $ulEntries.prepend(domTreeCreation(entryValues));
   dataView('entries');
 }
 $submitForm.addEventListener('submit', handleSubmit);
 
-/* Dom Tree Creation? */
+/* Dom Tree Creation */
 
 function domTreeCreation(entries) {
   /* Format for HTML
@@ -52,21 +73,34 @@ function domTreeCreation(entries) {
   var $divValues = document.createElement('div');
   var $h1 = document.createElement('h1');
   var $p = document.createElement('p');
-  var $title = document.createTextNode(entries.title);
-  var $notes = document.createTextNode(entries.notes);
+  var $h1PencilDiv = document.createElement('div');
+  var $pencilBox = document.createElement('div');
+  var $pencil = document.createElement('img');
 
+  $pencil.className = 'pencil-img edit-icon ';
+  $pencil.setAttribute('data-view', 'entry-form');
+  $pencilBox.setAttribute('data-view', 'entry-form');
+  $pencil.setAttribute('src', 'images/pencil.png');
+  $pencil.setAttribute('entryId', entries.entryId);
+  $pencilBox.setAttribute('entryId', entries.entryId);
   $li.className = 'row';
   $li.setAttribute('entryId', entries.entryId);
   $img.setAttribute('src', entries.photoUrl);
   $divImg.className = 'column-half no-padding';
+  $h1.className = 'h1-entries';
+  $pencilBox.className = 'pencil-box edit-icon';
+  $h1PencilDiv.className = 'column-full no-padding row ';
   $divValues.setAttribute('class', 'column-half');
 
   $li.appendChild($divImg);
   $li.appendChild($divValues);
   $divImg.appendChild($img);
-  $h1.appendChild($title);
-  $p.appendChild($notes);
-  $divValues.appendChild($h1);
+  $h1.textContent = entries.title;
+  $p.textContent = entries.notes;
+  $h1PencilDiv.appendChild($h1);
+  $h1PencilDiv.appendChild($pencilBox);
+  $pencilBox.appendChild($pencil);
+  $divValues.appendChild($h1PencilDiv);
   $divValues.appendChild($p);
 
   return $li;
@@ -103,8 +137,13 @@ function dataView(string) {
   }
 }
 
+var editEntryH1 = document.querySelector('.new-entry-h1');
 function handleViewSwap(event) {
   var viewName = event.target.getAttribute('data-view');
+  if (viewName === 'entry-form') {
+    editEntryH1.textContent = 'New Entry';
+    $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
+  }
   dataView(viewName);
 }
 function viewSwapNoReload(event) {
@@ -115,3 +154,24 @@ function viewSwapNoReload(event) {
 
 $anchorEntries.addEventListener('click', viewSwapNoReload);
 $newButton.addEventListener('click', handleViewSwap);
+
+/* Editing Function */
+function handleEditing(event) {
+  var viewName = event.target.getAttribute('data-view');
+  var editEntryH1 = document.querySelector('.new-entry-h1');
+  if (event.target.matches('.edit-icon')) {
+    dataView(viewName);
+    editEntryH1.textContent = 'Edit Entry';
+    data.editing = parseInt(event.target.getAttribute('entryId'));
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.editing === data.entries[i].entryId) {
+        $submitForm.elements.title.value = data.entries[i].title;
+        $submitForm.elements.url.value = data.entries[i].photoUrl;
+        $submitForm.elements.notes.value = data.entries[i].notes;
+        $photoUrl.setAttribute('src', data.entries[i].photoUrl);
+      }
+    }
+  }
+}
+
+$ulEntries.addEventListener('click', handleEditing);

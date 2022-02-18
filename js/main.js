@@ -18,6 +18,7 @@ function handleSubmit(event) {
   var titleValue = $submitForm.elements.title.value;
   var urlValue = $submitForm.elements.url.value;
   var notesValue = $submitForm.elements.notes.value;
+  var $li = document.querySelectorAll('li');
 
   if (data.editing === null) {
     var entryValues = {
@@ -28,28 +29,27 @@ function handleSubmit(event) {
     };
     data.entries.unshift(entryValues);
     data.nextEntryId++;
+    $ulEntries.prepend(domTreeCreation(entryValues));
+    $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
   }
 
   for (var i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === data.editing) {
       entryValues = {
-        titleValue,
-        urlValue,
-        notesValue,
+        title: titleValue,
+        photoUrl: urlValue,
+        notes: notesValue,
         entryId: data.entries[i].entryId
       };
 
-      var $li = document.querySelectorAll('li');
-      var editValues = data.entries.splice(i, 1, entryValues);
-      var editEntry = domTreeCreation(editValues[i]);
+      data.entries.splice(i, 1, entryValues);
+      var editEntry = domTreeCreation(entryValues);
       $li[i].replaceWith(editEntry);
       data.editing = null;
     }
   }
 
   $submitForm.reset();
-  $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $ulEntries.prepend(domTreeCreation(entryValues));
   dataView('entries');
 }
 $submitForm.addEventListener('submit', handleSubmit);
@@ -76,8 +76,6 @@ function domTreeCreation(entries) {
   var $h1PencilDiv = document.createElement('div');
   var $pencilBox = document.createElement('div');
   var $pencil = document.createElement('img');
-  var $title = document.createTextNode(entries.title);
-  var $notes = document.createTextNode(entries.notes);
 
   $pencil.className = 'pencil-img edit-icon ';
   $pencil.setAttribute('data-view', 'entry-form');
@@ -97,8 +95,8 @@ function domTreeCreation(entries) {
   $li.appendChild($divImg);
   $li.appendChild($divValues);
   $divImg.appendChild($img);
-  $h1.appendChild($title);
-  $p.appendChild($notes);
+  $h1.textContent = entries.title;
+  $p.textContent = entries.notes;
   $h1PencilDiv.appendChild($h1);
   $h1PencilDiv.appendChild($pencilBox);
   $pencilBox.appendChild($pencil);
@@ -150,7 +148,6 @@ function handleViewSwap(event) {
 function viewSwapNoReload(event) {
   var viewName = event.target.getAttribute('data-view');
   dataView(viewName);
-  event.preventDefault();
 }
 
 $anchorEntries.addEventListener('click', viewSwapNoReload);

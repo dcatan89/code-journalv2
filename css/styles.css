@@ -60,3 +60,22 @@ img {
   align-self: center;
   margin-left: 16px;
 }
+
+.pencil-img {
+  width: 25%;
+  height: 75%;
+  align-self: center;
+}
+
+.pencil-box {
+  text-align: right;
+  width: 50%;
+}
+
+.pencil-box:hover {
+  cursor: pointer;
+}
+
+.h1-entries {
+  width: 50%;
+}

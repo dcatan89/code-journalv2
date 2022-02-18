@@ -61,6 +61,10 @@ img {
   margin-left: 16px;
 }
 
+.edit-icon:hover {
+  cursor: pointer;
+}
+
 .pencil-img {
   width: 25%;
   height: 75%;

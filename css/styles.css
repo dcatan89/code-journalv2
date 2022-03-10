@@ -65,7 +65,6 @@ img {
   margin-left: 16px;
 }
 
-<<<<<<< HEAD
 .delete {
   margin-top: 0;
   color: red;
@@ -76,8 +75,6 @@ img {
   cursor: pointer;
 }
 
-=======
->>>>>>> master
 .pencil-img {
   width: 25%;
   height: 75%;
@@ -89,7 +86,6 @@ img {
   width: 50%;
 }
 
-<<<<<<< HEAD
 .h1-entries {
   width: 50%;
 }
@@ -140,12 +136,3 @@ img {
 .position-absolute {
   position: absolute;
 }
-=======
-.pencil-box:hover {
-  cursor: pointer;
-}
-
-.h1-entries {
-  width: 50%;
-}
->>>>>>> master

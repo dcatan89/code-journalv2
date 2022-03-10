@@ -31,6 +31,7 @@ function handleSubmit(event) {
     data.nextEntryId++;
     $ulEntries.prepend(domTreeCreation(entryValues));
     $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
+<<<<<<< HEAD
   } else {
 
     for (var i = 0; i < data.entries.length; i++) {
@@ -49,6 +50,26 @@ function handleSubmit(event) {
       }
     }
   }
+=======
+  }
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing) {
+      entryValues = {
+        title: titleValue,
+        photoUrl: urlValue,
+        notes: notesValue,
+        entryId: data.entries[i].entryId
+      };
+
+      data.entries.splice(i, 1, entryValues);
+      var editEntry = domTreeCreation(entryValues);
+      $li[i].replaceWith(editEntry);
+      data.editing = null;
+    }
+  }
+
+>>>>>>> master
   $submitForm.reset();
   dataView('entries');
 }
@@ -141,9 +162,13 @@ var editEntryH1 = document.querySelector('.new-entry-h1');
 function handleViewSwap(event) {
   var viewName = event.target.getAttribute('data-view');
   if (viewName === 'entry-form') {
+<<<<<<< HEAD
     $openModal.classList.add('hidden');
     editEntryH1.textContent = 'New Entry';
     $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
+=======
+    editEntryH1.textContent = 'New Entry';
+>>>>>>> master
   }
   dataView(viewName);
 }
@@ -151,19 +176,24 @@ function viewSwapNoReload(event) {
   var viewName = event.target.getAttribute('data-view');
   $openModal.classList.add('hidden');
   dataView(viewName);
-  event.preventDefault();
 }
 
 $anchorEntries.addEventListener('click', viewSwapNoReload);
 $newButton.addEventListener('click', handleViewSwap);
 
 /* Editing Function */
+<<<<<<< HEAD
 var $openModal = document.querySelector('.delete');
+=======
+>>>>>>> master
 function handleEditing(event) {
   var viewName = event.target.getAttribute('data-view');
   var editEntryH1 = document.querySelector('.new-entry-h1');
   if (event.target.matches('.edit-icon')) {
+<<<<<<< HEAD
     $openModal.classList.remove('hidden');
+=======
+>>>>>>> master
     dataView(viewName);
     editEntryH1.textContent = 'Edit Entry';
     data.editing = parseInt(event.target.getAttribute('entryId'));
@@ -179,6 +209,7 @@ function handleEditing(event) {
 }
 
 $ulEntries.addEventListener('click', handleEditing);
+<<<<<<< HEAD
 
 /* Open/Close Modal */
 var $modal = document.querySelector('.overlay');
@@ -217,3 +248,5 @@ function handleDelete(event) {
 }
 
 $confirm.addEventListener('click', handleDelete);
+=======
+>>>>>>> master

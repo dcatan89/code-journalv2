@@ -31,6 +31,26 @@ function handleSubmit(event) {
     data.nextEntryId++;
     $ulEntries.prepend(domTreeCreation(entryValues));
     $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
+<<<<<<< HEAD
+  } else {
+
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing) {
+        entryValues = {
+          title: titleValue,
+          photoUrl: urlValue,
+          notes: notesValue,
+          entryId: data.entries[i].entryId
+        };
+
+        data.entries.splice(i, 1, entryValues);
+        var editEntry = domTreeCreation(entryValues);
+        $li[i].replaceWith(editEntry);
+        data.editing = null;
+      }
+    }
+  }
+=======
   }
 
   for (var i = 0; i < data.entries.length; i++) {
@@ -49,6 +69,7 @@ function handleSubmit(event) {
     }
   }
 
+>>>>>>> master
   $submitForm.reset();
   dataView('entries');
 }
@@ -141,12 +162,19 @@ var editEntryH1 = document.querySelector('.new-entry-h1');
 function handleViewSwap(event) {
   var viewName = event.target.getAttribute('data-view');
   if (viewName === 'entry-form') {
+<<<<<<< HEAD
+    $openModal.classList.add('hidden');
     editEntryH1.textContent = 'New Entry';
+    $photoUrl.setAttribute('src', 'images/placeholder-image-square.jpg');
+=======
+    editEntryH1.textContent = 'New Entry';
+>>>>>>> master
   }
   dataView(viewName);
 }
 function viewSwapNoReload(event) {
   var viewName = event.target.getAttribute('data-view');
+  $openModal.classList.add('hidden');
   dataView(viewName);
 }
 
@@ -154,10 +182,18 @@ $anchorEntries.addEventListener('click', viewSwapNoReload);
 $newButton.addEventListener('click', handleViewSwap);
 
 /* Editing Function */
+<<<<<<< HEAD
+var $openModal = document.querySelector('.delete');
+=======
+>>>>>>> master
 function handleEditing(event) {
   var viewName = event.target.getAttribute('data-view');
   var editEntryH1 = document.querySelector('.new-entry-h1');
   if (event.target.matches('.edit-icon')) {
+<<<<<<< HEAD
+    $openModal.classList.remove('hidden');
+=======
+>>>>>>> master
     dataView(viewName);
     editEntryH1.textContent = 'Edit Entry';
     data.editing = parseInt(event.target.getAttribute('entryId'));
@@ -173,3 +209,44 @@ function handleEditing(event) {
 }
 
 $ulEntries.addEventListener('click', handleEditing);
+<<<<<<< HEAD
+
+/* Open/Close Modal */
+var $modal = document.querySelector('.overlay');
+var $cancel = document.querySelector('.cancel');
+var modal = 'closed';
+
+function toggleModal(event) {
+  if (modal === 'closed') {
+    $modal.classList.remove('hidden');
+    modal = 'open';
+  } else {
+    $modal.classList.add('hidden');
+    modal = 'closed';
+  }
+}
+
+$openModal.addEventListener('click', toggleModal);
+$cancel.addEventListener('click', toggleModal);
+
+/* Delete Entries */
+var $confirm = document.querySelector('.confirm');
+
+function handleDelete(event) {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing) {
+      var $li = document.querySelectorAll('li');
+      data.entries.splice(i, 1);
+      $li[i].remove();
+      data.editing = null;
+      data.nextEntryId--;
+      dataView('entries');
+      $modal.classList.add('hidden');
+      modal = 'closed';
+    }
+  }
+}
+
+$confirm.addEventListener('click', handleDelete);
+=======
+>>>>>>> master

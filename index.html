@@ -15,6 +15,19 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <div class="overlay hidden row justify-center align-center">
+    <div class=" column-full modal">
+      <h3 class="column-full row justify-center">Are You Sure You Want to Delete this Entry</h3>
+      <div class="column-full row">
+        <div class="modal-buttons row justify-center margin-top">
+          <button class="cancel ">CANCEL</button>
+        </div>
+        <div class="modal-buttons row justify-center margin-top">
+          <button class="confirm">CONFIRM</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <header class="container bgc-purple">
     <div class="row no-wrap">
       <p class=" font-size-up white-txt">Code Journal</p>
@@ -44,8 +57,13 @@
           <label class="margin-bottom" for="notes-entry">Notes</label>
           <textarea class="" required rows="8" name="notes" id="notes-entry"></textarea>
         </div>
-        <div class="row text-area margin-top justify-right">
-          <button class="save-button bgc-purple " type="submit">SAVE</button>
+        <div class="row justify-right column-full text-area margin-top ">
+          <div class="delete-save-row row">
+            <p class="delete hidden"><u>Delete Entry</u></p>
+          </div>
+          <div class="row delete-save-row justify-right">
+            <button class="save-button right-align bgc-purple " type="submit">SAVE</button>
+          </div>
         </div>
       </form>
     </div>

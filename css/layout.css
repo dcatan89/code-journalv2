@@ -13,21 +13,13 @@
   flex-wrap: wrap;
 }
 
-.no-wrap {
-  flex-wrap: nowrap;
-}
-
 .column-full,
 .column-half {
   width: 100%;
 }
 
-.entries-header {
+.delete-save-row {
   width: 50%;
-}
-
-.align-self-center {
-  align-self: center;
 }
 
 @media screen and (min-width: 768px) {
